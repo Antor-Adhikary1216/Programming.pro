@@ -1,4 +1,4 @@
-import { FaArrowRight } from 'react-icons/fa6'
+import { FaArrowRight, FaArrowUpRightFromSquare, FaGithub } from 'react-icons/fa6'
 import { Link } from 'react-router-dom'
 import Container from '../components/common/Container.jsx'
 import PageHero from '../components/common/PageHero.jsx'
@@ -35,9 +35,21 @@ function Projects() {
                       <span key={technology} className="rounded-lg bg-canvas/5 px-3 py-1.5 text-[11px] font-semibold text-slate-600">{technology}</span>
                     ))}
                   </div>
-                  <Link to={`/projects/${project.slug}`} className="mt-7 inline-flex items-center gap-2 font-display text-sm font-semibold text-canvas transition group-hover:gap-3 group-hover:text-emerald-700">
-                    Read the case study <FaArrowRight aria-hidden="true" />
-                  </Link>
+                  <div className="mt-7 flex flex-wrap items-center gap-4">
+                    <Link to={`/projects/${project.slug}`} className="inline-flex items-center gap-2 font-display text-sm font-semibold text-canvas transition hover:gap-3 hover:text-emerald-700">
+                      Read the case study <FaArrowRight aria-hidden="true" />
+                    </Link>
+                    {project.liveUrl && (
+                      <a href={project.liveUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-sm font-semibold text-emerald-700 transition-colors hover:text-canvas">
+                        Live site <FaArrowUpRightFromSquare aria-hidden="true" />
+                      </a>
+                    )}
+                    {project.repositoryUrl && (
+                      <a href={project.repositoryUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 transition-colors hover:text-canvas">
+                        <FaGithub aria-hidden="true" /> GitHub
+                      </a>
+                    )}
+                  </div>
                 </div>
               </article>
             ))}

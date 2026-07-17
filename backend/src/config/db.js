@@ -1,4 +1,7 @@
-import mongoose from 'mongoose'
+import { MongoClient } from 'mongodb'
+
+let client
+let database
 
 export async function connectDatabase() {
   const { MONGODB_URI } = process.env
@@ -13,11 +16,35 @@ export async function connectDatabase() {
     )
   }
 
-  await mongoose.connect(MONGODB_URI, {
+  client = new MongoClient(MONGODB_URI, {
     serverSelectionTimeoutMS: 10000,
   })
 
-  console.log(
-    `MongoDB Atlas connected: ${mongoose.connection.host}/${mongoose.connection.name}`,
-  )
+  try {
+    await client.connect()
+    database = client.db()
+    await database.command({ ping: 1 })
+    console.log(`MongoDB Atlas connected: ${database.databaseName}`)
+  } catch (error) {
+    await client.close()
+    client = undefined
+    database = undefined
+    throw error
+  }
+}
+
+export function getDatabase() {
+  if (!database) {
+    throw new Error('Database connection has not been established.')
+  }
+
+  return database
+}
+
+export async function closeDatabase() {
+  if (!client) return
+
+  await client.close()
+  client = undefined
+  database = undefined
 }

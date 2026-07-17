@@ -1,7 +1,6 @@
 import 'dotenv/config'
-import mongoose from 'mongoose'
 import app from './app.js'
-import { connectDatabase } from './config/db.js'
+import { closeDatabase, connectDatabase } from './config/db.js'
 
 const port = process.env.PORT || 5000
 
@@ -17,9 +16,13 @@ async function startServer() {
   }
 }
 
-process.on('SIGINT', async () => {
-  await mongoose.connection.close()
+async function shutdown(signal) {
+  console.log(`\n${signal} received. Closing database connection.`)
+  await closeDatabase()
   process.exit(0)
-})
+}
+
+process.once('SIGINT', () => shutdown('SIGINT'))
+process.once('SIGTERM', () => shutdown('SIGTERM'))
 
 startServer()

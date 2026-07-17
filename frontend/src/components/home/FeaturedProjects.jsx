@@ -1,53 +1,46 @@
 import { FaArrowRight, FaArrowUpRightFromSquare } from 'react-icons/fa6'
+import { NavLink } from 'react-router-dom'
 import { projects } from '../../data/projects.js'
-import Button from '../common/Button.jsx'
 import Container from '../common/Container.jsx'
-import SectionTitle from '../common/SectionTitle.jsx'
 
 function FeaturedProjects() {
   return (
-    <section className="bg-cream py-24 text-canvas sm:py-32">
+    <section className="bg-[#dfe7ff] py-24 text-[#171717] sm:py-32">
       <Container>
         <div className="flex flex-col gap-8 sm:flex-row sm:items-end sm:justify-between">
           <div data-reveal>
-            <SectionTitle
-              eyebrow="Selected systems"
-              title="Projects shaped across the whole stack."
-              description="Product interfaces, APIs, data models, and operational tools designed as one system."
-              tone="light"
-            />
+            <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#2f5cff]">Selected work</p>
+            <h2 className="text-balance mt-6 max-w-4xl font-editorial text-[clamp(3.6rem,7vw,7rem)] font-semibold leading-[0.82] tracking-[-0.055em]">
+              Products with a clear reason to exist.
+            </h2>
           </div>
-          <Button to="/projects" variant="dark" className="w-fit shrink-0">
-            View every project <FaArrowRight aria-hidden="true" />
-          </Button>
+          <NavLink to="/projects" className="inline-flex w-fit items-center gap-3 border-b border-black pb-2 text-sm font-bold">
+            View all projects <FaArrowRight aria-hidden="true" />
+          </NavLink>
         </div>
 
-        <div className="mt-14 grid gap-5 lg:grid-cols-2">
-          {projects.slice(0, 3).map((project, index) => (
-            <article key={project.slug} data-reveal="scale" style={{ '--reveal-delay': `${index * 90}ms` }} className={`group relative overflow-hidden rounded-3xl border border-canvas/10 bg-canvas p-7 text-white sm:p-9 ${index === 2 ? 'lg:col-span-2' : ''}`}>
-              <div className={`absolute inset-0 bg-gradient-to-br ${project.color}`} />
-              <div className="dot-grid absolute inset-0 opacity-25" />
-              <div className="relative flex min-h-[330px] flex-col justify-between">
-                <div className="flex items-start justify-between gap-5">
-                  <div>
-                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-mint">{project.category}</p>
-                    <h3 className="mt-3 font-display text-3xl font-semibold tracking-[-0.045em] sm:text-4xl">{project.title}</h3>
-                  </div>
-                  <span className="grid size-11 shrink-0 place-items-center rounded-xl border border-white/15 bg-white/5 text-sm transition group-hover:border-lime group-hover:bg-lime group-hover:text-canvas">
-                    <FaArrowUpRightFromSquare aria-hidden="true" />
-                  </span>
-                </div>
-
-                <div>
-                  <p className="max-w-xl leading-7 text-slate-300">{project.summary}</p>
-                  <div className="mt-6 flex flex-wrap gap-2">
-                    {project.stack.map((technology) => (
-                      <span key={technology} className="rounded-lg border border-white/10 bg-canvas/30 px-3 py-1.5 text-[11px] font-semibold text-slate-300 backdrop-blur">{technology}</span>
-                    ))}
-                  </div>
-                </div>
+        <div className="mt-16 border-t border-black/20">
+          {projects.slice(0, 4).map((project, index) => (
+            <NavLink
+              key={project.slug}
+              to={`/projects/${project.slug}`}
+              data-reveal
+              style={{ '--reveal-delay': `${index * 80}ms` }}
+              className="group grid gap-6 border-b border-black/20 py-9 transition hover:bg-white/25 sm:grid-cols-[54px_0.85fr_1.15fr_42px] sm:items-center sm:px-4"
+            >
+              <span className="text-xs font-bold text-black/35">0{index + 1}</span>
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#2f5cff]">{project.category}</p>
+                <h3 className="mt-2 font-editorial text-3xl font-semibold leading-none sm:text-4xl">{project.title}</h3>
               </div>
-            </article>
+              <div>
+                <p className="max-w-xl text-sm font-medium leading-7 text-black/60">{project.summary}</p>
+                <p className="mt-3 text-xs font-bold text-black/40">{project.stack.join(' / ')}</p>
+              </div>
+              <span className="grid size-10 place-items-center rounded-full border border-black/25 transition group-hover:border-[#2f5cff] group-hover:bg-[#2f5cff] group-hover:text-white">
+                <FaArrowUpRightFromSquare className="text-xs" aria-hidden="true" />
+              </span>
+            </NavLink>
           ))}
         </div>
       </Container>

@@ -1,10 +1,10 @@
-@import '@fontsource-variable/space-grotesk';
-@import '@fontsource-variable/plus-jakarta-sans';
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Plus Jakarta Sans Variable", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Space Grotesk Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-editorial: "Cormorant Garamond", Georgia, serif;
+  --font-classic: "Cormorant Garamond", Georgia, serif;
   --color-canvas: #06100d;
   --color-panel: #0b1b17;
   --color-panel-soft: #10251f;
@@ -29,6 +29,33 @@
 
 html {
   scroll-behavior: smooth;
+  scrollbar-color: #38bdf8 #050505;
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #050505;
+}
+
+::-webkit-scrollbar-thumb {
+  min-height: 48px;
+  border: 2px solid #050505;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #7dd3fc 0%, #38bdf8 52%, #62e6c4 100%);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #bae6fd 0%, #60c9fa 52%, #8cf3d9 100%);
+}
+
+::-webkit-scrollbar-corner {
+  background: #050505;
 }
 
 body {
@@ -85,6 +112,23 @@ a {
   animation: ticker 30s linear infinite;
 }
 
+.footer-wave {
+  transform-origin: center bottom;
+  will-change: transform;
+}
+
+.footer-wave-back {
+  animation: footer-wave-drift 10s ease-in-out infinite alternate;
+}
+
+.footer-wave-middle {
+  animation: footer-wave-drift 8s ease-in-out -2s infinite alternate-reverse;
+}
+
+.footer-wave-front {
+  animation: footer-wave-drift 12s ease-in-out -4s infinite alternate;
+}
+
 [data-reveal] {
   opacity: 0;
   transform: translate3d(0, 30px, 0);
@@ -130,13 +174,19 @@ a {
   to { transform: translateX(-50%); }
 }
 
+@keyframes footer-wave-drift {
+  from { transform: translateX(-1.5%) scaleX(1.01); }
+  to { transform: translateX(1.5%) scaleX(1.04); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
 
   .system-background-image,
   .ambient-orb,
   .scan-line,
-  .stack-ticker {
+  .stack-ticker,
+  .footer-wave {
     animation: none;
     transform: none;
   }

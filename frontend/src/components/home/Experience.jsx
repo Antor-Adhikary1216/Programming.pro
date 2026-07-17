@@ -1,39 +1,34 @@
-import { FaArrowRight, FaCheck } from 'react-icons/fa6'
 import Container from '../common/Container.jsx'
-import SectionTitle from '../common/SectionTitle.jsx'
 
-const process = [
-  ['Understand', 'Map users, product goals, data, and technical constraints before choosing tools.'],
-  ['Design the system', 'Shape the interface, API boundaries, schema, and state transitions together.'],
-  ['Build in slices', 'Deliver working vertical features instead of disconnected frontend and backend pieces.'],
-  ['Verify and ship', 'Check responsive behavior, errors, security boundaries, builds, and deployment.'],
+const steps = [
+  ['Listen', 'Understand the user, business goal, and constraints before choosing tools.'],
+  ['Shape', 'Turn the idea into a clear flow, interface, API boundary, and data model.'],
+  ['Build', 'Create working features across the stack in small, understandable slices.'],
+  ['Verify', 'Check responsive behavior, errors, data flow, and the production build.'],
 ]
 
 function Experience() {
   return (
-    <section className="border-y border-white/8 bg-panel py-24 sm:py-32">
+    <section className="bg-[#171717] py-24 text-white sm:py-32">
       <Container>
-        <div className="grid gap-14 lg:grid-cols-[0.8fr_1.2fr]">
-          <div data-reveal="left">
-            <SectionTitle
-              eyebrow="Build process"
-              title="From idea to reliable product."
-              description="A simple process that keeps design decisions and engineering decisions connected."
-            />
-          </div>
+        <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
+          <h2 data-reveal className="text-balance font-editorial text-[clamp(3.7rem,7vw,7.4rem)] font-semibold leading-[0.8] tracking-[-0.055em]">
+            A calm process for
+            <em className="block font-medium text-[#86a2ff]">complicated products.</em>
+          </h2>
+          <p data-reveal className="max-w-lg text-base font-medium leading-8 text-white/55 lg:justify-self-end">
+            You always know what is being built, why it matters, and what comes next. Clear communication is part of the engineering.
+          </p>
+        </div>
 
-          <div className="space-y-3">
-            {process.map(([title, description], index) => (
-              <article key={title} data-reveal style={{ '--reveal-delay': `${index * 80}ms` }} className="group grid gap-4 rounded-2xl border border-white/8 bg-canvas/45 p-5 transition hover:border-mint/25 sm:grid-cols-[42px_1fr_24px] sm:items-start sm:p-6">
-                <span className="grid size-10 place-items-center rounded-xl bg-lime text-xs font-bold text-canvas">0{index + 1}</span>
-                <div>
-                  <h3 className="font-display text-lg font-semibold text-white">{title}</h3>
-                  <p className="mt-2 text-sm leading-6 text-slate-400">{description}</p>
-                </div>
-                {index === process.length - 1 ? <FaCheck className="mt-2 text-lime" /> : <FaArrowRight className="mt-2 text-slate-600 transition group-hover:translate-x-1 group-hover:text-mint" />}
-              </article>
-            ))}
-          </div>
+        <div className="mt-16 grid border-y border-white/15 sm:grid-cols-2 lg:grid-cols-4">
+          {steps.map(([title, description], index) => (
+            <article key={title} data-reveal style={{ '--reveal-delay': `${index * 80}ms` }} className="border-b border-white/15 py-8 sm:border-r sm:px-6 lg:border-b-0 lg:first:pl-0 lg:last:border-r-0 lg:last:pr-0">
+              <span className="text-xs font-bold text-[#86a2ff]">0{index + 1}</span>
+              <h3 className="mt-10 font-editorial text-3xl font-semibold">{title}</h3>
+              <p className="mt-4 text-sm font-medium leading-7 text-white/50">{description}</p>
+            </article>
+          ))}
         </div>
       </Container>
     </section>

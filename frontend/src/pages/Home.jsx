@@ -7,7 +7,7 @@ import Skills from '../components/home/Skills.jsx'
 
 function Home() {
   return (
-    <div id="top" className="overflow-clip bg-canvas text-white">
+    <div id="top" className="overflow-clip bg-[#f3efe6] text-[#171717]">
       <Hero />
       <AboutPreview />
       <Skills />

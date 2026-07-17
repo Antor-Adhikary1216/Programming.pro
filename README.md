@@ -3,7 +3,7 @@
 This workspace contains two independent applications:
 
 - `frontend/` — React, Vite, Tailwind CSS, React Router, React Icons, and a fetch-based API layer.
-- `backend/` — Node.js, Express, MongoDB/Mongoose, and a REST API.
+- `backend/` — Node.js, Express, the official MongoDB driver, and a REST API.
 
 ## Run locally
 
