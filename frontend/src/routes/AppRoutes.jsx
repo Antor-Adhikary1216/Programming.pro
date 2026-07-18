@@ -11,11 +11,15 @@ import useScrollEffects from '../hooks/useScrollEffects.js'
 function AppRoutes() {
   const location = useLocation()
   useScrollEffects(location.pathname)
+  const isHome = location.pathname === '/'
 
   return (
-    <div className="mx-auto flex min-h-screen w-full max-w-[1440px] flex-col overflow-x-clip bg-canvas text-white">
-      <Navbar />
-      <main className="flex-1">
+    <div className="flex min-h-screen w-full flex-col overflow-x-clip bg-transparent text-white">
+      <a href="#main-content" className="skip-link">
+        Skip to content
+      </a>
+      {!isHome && <Navbar />}
+      <main id="main-content" tabIndex={-1} className="flex-1 outline-none">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/projects" element={<Projects />} />
@@ -26,7 +30,7 @@ function AppRoutes() {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
-      <Footer />
+      {!isHome && <Footer />}
     </div>
   )
 }

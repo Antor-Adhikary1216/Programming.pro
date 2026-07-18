@@ -1,5 +1,5 @@
-import { FaEnvelope, FaGithub, FaLinkedinIn } from 'react-icons/fa6'
 import { NavLink } from 'react-router-dom'
+import { GithubIcon, LinkedinIcon, MailIcon } from '../common/Icons.jsx'
 import Container from '../common/Container.jsx'
 
 const footerLinks = [
@@ -13,86 +13,63 @@ const socialLinks = [
   {
     label: 'GitHub',
     href: 'https://github.com/Antor-Adhikary1216',
-    icon: FaGithub,
+    icon: GithubIcon,
   },
   {
     label: 'LinkedIn',
     href: 'https://www.linkedin.com/in/antor-adhikary',
-    icon: FaLinkedinIn,
+    icon: LinkedinIcon,
   },
   {
     label: 'Email',
     href: 'mailto:antoradhikari1612@gmail.com',
-    icon: FaEnvelope,
+    icon: MailIcon,
   },
 ]
 
 function Footer() {
   return (
-    <footer className="overflow-hidden bg-[#080a0f] text-white">
-      <Container className="flex min-h-[22rem] flex-col items-center justify-center py-20 text-center sm:min-h-[28rem]">
-        <p className="text-xs font-bold uppercase tracking-[0.24em] text-sky-400">
-          Have a project in mind?
-        </p>
-        <h2 className="text-balance mt-5 max-w-5xl font-editorial text-[clamp(3.5rem,9vw,8.5rem)] font-semibold leading-[0.78] tracking-[-0.055em]">
-          Let&apos;s build something useful.
-        </h2>
-        <a
-          href="mailto:antoradhikari1612@gmail.com"
-          className="mt-9 inline-flex items-center gap-2 border-b border-white/50 pb-2 text-sm font-bold transition-colors hover:border-sky-400 hover:text-sky-300"
-        >
-          Start a conversation <FaEnvelope aria-hidden="true" />
-        </a>
-      </Container>
+    <footer className="bg-canvas pb-10 pt-6 text-white sm:pb-12">
+      <Container>
+        <div className="footer-surface rounded-[1.35rem] px-6 py-8 sm:px-8 sm:py-9">
+          <div className="grid gap-10 md:grid-cols-[1fr_auto] md:items-end">
+            <div>
+              <p className="text-xl font-bold tracking-[-0.04em]">Programming.pro</p>
+              <p className="mt-3 max-w-[43ch] text-sm font-medium leading-6 text-white/52">
+                Full-stack products shaped with clear interfaces, dependable systems, and motion that earns its place.
+              </p>
+            </div>
 
-      <div className="relative mt-16 bg-[#2463eb] pb-10 pt-24 sm:pb-12 sm:pt-28">
-        <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-24 -translate-y-full overflow-hidden sm:h-32">
-          <div className="footer-wave footer-wave-back absolute -bottom-14 left-[-12%] h-28 w-[124%] rounded-[50%] bg-[#182c55] sm:-bottom-16 sm:h-36" />
-          <div className="footer-wave footer-wave-middle absolute -bottom-16 left-[-14%] h-28 w-[128%] rounded-[48%] bg-[#2452a5] sm:-bottom-20 sm:h-40" />
-          <div className="footer-wave footer-wave-front absolute -bottom-20 left-[-10%] h-32 w-[120%] rounded-[50%] bg-[#2463eb] sm:-bottom-24 sm:h-44" />
-        </div>
-
-        <Container className="flex flex-col items-center text-center">
-          <div className="flex items-center gap-3">
-            {socialLinks.map(({ label, href, icon: Icon }) => (
-              <a
-                key={label}
-                href={href}
-                target={href.startsWith('http') ? '_blank' : undefined}
-                rel={href.startsWith('http') ? 'noreferrer' : undefined}
-                aria-label={label}
-                className="grid size-11 place-items-center rounded-full border border-white/25 bg-white/10 text-lg transition hover:-translate-y-1 hover:border-white/60 hover:bg-white hover:text-[#1749b6]"
-              >
-                <Icon aria-hidden="true" />
-              </a>
-            ))}
+            <div className="flex items-center gap-2 md:justify-end">
+              {socialLinks.map(({ label, href, icon: Icon }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target={href.startsWith('http') ? '_blank' : undefined}
+                  rel={href.startsWith('http') ? 'noreferrer' : undefined}
+                  aria-label={label}
+                  className="footer-icon grid size-11 place-items-center rounded-[0.9rem] text-white/58 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-lime"
+                >
+                  <Icon className="size-[1.05rem]" aria-hidden="true" />
+                </a>
+              ))}
+            </div>
           </div>
 
-          <nav aria-label="Footer navigation" className="mt-8 flex flex-wrap justify-center gap-x-7 gap-y-3">
-            {footerLinks.map((link) => (
-              <NavLink
-                key={link.to}
-                to={link.to}
-                className="text-sm font-semibold text-blue-100 transition-colors hover:text-white"
-              >
-                {link.label}
-              </NavLink>
-            ))}
-          </nav>
-
-          <a
-            href="mailto:antoradhikari1612@gmail.com"
-            className="mt-7 text-sm font-medium text-blue-100 transition-colors hover:text-white"
-          >
-            antoradhikari1612@gmail.com
-          </a>
-
-          <div className="mt-8 h-px w-full max-w-xl bg-white/20" />
-          <p className="mt-6 text-xs font-medium text-blue-100">
-            &copy; {new Date().getFullYear()} Programming.pro. All rights reserved.
-          </p>
-        </Container>
-      </div>
+          <div className="mt-9 flex flex-col gap-6 border-t border-white/8 pt-6 sm:flex-row sm:items-center sm:justify-between">
+            <nav aria-label="Footer navigation" className="flex flex-wrap gap-x-6 gap-y-3">
+              {footerLinks.map((link) => (
+                <NavLink key={link.to} to={link.to} className="footer-link text-sm font-semibold text-white/48">
+                  {link.label}
+                </NavLink>
+              ))}
+            </nav>
+            <p className="font-mono text-[9px] font-medium text-white/30">
+              &copy; {new Date().getFullYear()} Programming.pro · Built with intent
+            </p>
+          </div>
+        </div>
+      </Container>
     </footer>
   )
 }

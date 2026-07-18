@@ -1,48 +1,78 @@
-import { FaArrowRight, FaArrowUpRightFromSquare } from 'react-icons/fa6'
 import { NavLink } from 'react-router-dom'
 import { projects } from '../../data/projects.js'
+import { ArrowRightIcon, ArrowUpRightIcon } from '../common/Icons.jsx'
 import Container from '../common/Container.jsx'
+
+const cardLayouts = [
+  'lg:col-span-7 lg:min-h-[35rem]',
+  'lg:col-span-5 lg:min-h-[35rem]',
+  'lg:col-span-5 lg:min-h-[30rem]',
+  'lg:col-span-7 lg:min-h-[30rem]',
+]
 
 function FeaturedProjects() {
   return (
-    <section className="bg-[#dfe7ff] py-24 text-[#171717] sm:py-32">
+    <section className="bg-transparent py-28 text-white sm:py-36">
       <Container>
-        <div className="flex flex-col gap-8 sm:flex-row sm:items-end sm:justify-between">
-          <div data-reveal>
-            <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#2f5cff]">Selected work</p>
-            <h2 className="text-balance mt-6 max-w-4xl font-editorial text-[clamp(3.6rem,7vw,7rem)] font-semibold leading-[0.82] tracking-[-0.055em]">
-              Products with a clear reason to exist.
+        <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
+          <div data-reveal className="max-w-[55rem]">
+            <p className="section-kicker">Selected product work</p>
+            <h2 className="text-balance mt-6 text-[clamp(3.2rem,6vw,6.5rem)] font-semibold leading-[0.88] tracking-[-0.06em]">
+              Built to work <span className="text-lime">beyond the mockup.</span>
             </h2>
           </div>
-          <NavLink to="/projects" className="inline-flex w-fit items-center gap-3 border-b border-black pb-2 text-sm font-bold">
-            View all projects <FaArrowRight aria-hidden="true" />
-          </NavLink>
+          <p data-reveal="right" className="max-w-[35ch] text-sm font-medium leading-7 text-white/56 lg:pb-2">
+            Real interfaces, backend decisions, and operational details brought into one product experience.
+          </p>
         </div>
 
-        <div className="mt-16 border-t border-black/20">
+        <div className="mt-16 grid gap-4 lg:grid-cols-12">
           {projects.slice(0, 4).map((project, index) => (
             <NavLink
               key={project.slug}
               to={`/projects/${project.slug}`}
-              data-reveal
-              style={{ '--reveal-delay': `${index * 80}ms` }}
-              className="group grid gap-6 border-b border-black/20 py-9 transition hover:bg-white/25 sm:grid-cols-[54px_0.85fr_1.15fr_42px] sm:items-center sm:px-4"
+              data-reveal="scale"
+              style={{ '--reveal-delay': `${index * 60}ms` }}
+              className={`bezel-shell project-shell group relative min-h-[28rem] p-1.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-lime ${cardLayouts[index]}`}
             >
-              <span className="text-xs font-bold text-black/35">0{index + 1}</span>
-              <div>
-                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#2f5cff]">{project.category}</p>
-                <h3 className="mt-2 font-editorial text-3xl font-semibold leading-none sm:text-4xl">{project.title}</h3>
-              </div>
-              <div>
-                <p className="max-w-xl text-sm font-medium leading-7 text-black/60">{project.summary}</p>
-                <p className="mt-3 text-xs font-bold text-black/40">{project.stack.join(' / ')}</p>
-              </div>
-              <span className="grid size-10 place-items-center rounded-full border border-black/25 transition group-hover:border-[#2f5cff] group-hover:bg-[#2f5cff] group-hover:text-white">
-                <FaArrowUpRightFromSquare className="text-xs" aria-hidden="true" />
-              </span>
+              <article className="project-card relative flex h-full min-h-[inherit] overflow-hidden rounded-[calc(1.65rem-0.375rem)] p-7 sm:p-9">
+                <div className={`project-surface project-surface-${index} absolute inset-0`} aria-hidden="true" />
+                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(7,16,12,0.03)_10%,rgba(7,16,12,0.2)_42%,rgba(7,16,12,0.96)_100%)]" aria-hidden="true" />
+
+                <div className="absolute left-7 top-7 flex items-center gap-2 font-mono text-[9px] font-medium text-white/48 sm:left-9 sm:top-9">
+                  <span className="size-1.5 rounded-full bg-lime/80" />
+                  CASE STUDY 0{index + 1}
+                </div>
+
+                <div className="relative mt-auto flex w-full items-end justify-between gap-5">
+                  <div>
+                    <p className="font-mono text-[9px] font-medium text-lime">{project.category}</p>
+                    <h3 className="mt-3 text-balance text-4xl font-semibold leading-none tracking-[-0.05em] sm:text-5xl">
+                      {project.title}
+                    </h3>
+                    <p className="mt-4 max-w-[46ch] text-sm font-medium leading-6 text-white/64">{project.summary}</p>
+                    <p className="mt-5 max-w-[52ch] font-mono text-[9px] font-medium leading-5 text-white/42">
+                      {project.stack.slice(0, 4).join('  /  ')}
+                    </p>
+                  </div>
+                  <span className="project-arrow grid size-12 shrink-0 place-items-center rounded-[0.9rem] text-white">
+                    <ArrowUpRightIcon className="size-[1.1rem]" aria-hidden="true" />
+                  </span>
+                </div>
+              </article>
             </NavLink>
           ))}
         </div>
+
+        <NavLink
+          to="/projects"
+          className="button-secondary group mt-10 inline-flex min-h-12 items-center gap-4 rounded-[0.95rem] border border-white/14 bg-white/[0.025] py-1.5 pl-5 pr-1.5 text-sm font-bold text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-lime"
+        >
+          Explore every project
+          <span className="button-icon bg-white/[0.07] text-lime">
+            <ArrowRightIcon className="size-4" aria-hidden="true" />
+          </span>
+        </NavLink>
       </Container>
     </section>
   )
